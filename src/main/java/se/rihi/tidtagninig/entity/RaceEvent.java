@@ -36,8 +36,6 @@ public class RaceEvent implements Serializable {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "fee")
-    private String fee;
     @Column(name = "date")
     private Date date;
     @Column(name = "event_location")
@@ -79,14 +77,6 @@ public class RaceEvent implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getFee() {
-        return fee;
-    }
-
-    public void setFee(String fee) {
-        this.fee = fee;
     }
 
     public Date getDate() {

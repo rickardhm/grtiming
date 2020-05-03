@@ -22,6 +22,8 @@ public class Race implements Serializable {
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "fee")
+    private String fee;
     @Column(name = "distance")
     private String distance;
     public int getId() {
@@ -46,6 +48,14 @@ public class Race implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFee() {
+        return fee;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
     }
 
     public String getDistance() {
