@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 public class ParticipantManager implements ParticipantManagerInterface {
+
     protected SessionFactory sessionFactory;
     private Session session;
     EntityManagerFactory factory;
@@ -35,17 +36,16 @@ public class ParticipantManager implements ParticipantManagerInterface {
 
     @Override
     public void exit() {
+        session.getTransaction().commit();
         session.close();
         sessionFactory.close();
     }
 
     @Override
     public void create(Participant participant) {
-        Transaction transaction = getTransaction();
         if (null != participant) {
 
             session.persist(participant);
-            transaction.commit();
         }
     }
 
@@ -74,21 +74,12 @@ public class ParticipantManager implements ParticipantManagerInterface {
 
     @Override
     public void update(Participant participant) {
-        // code to modify a Participant
-        Transaction transaction = getTransaction();
-        if (null != participant) {
-
-            session.update(participant);
-            transaction.commit();
-        }
+        session.update(participant);
     }
 
     @Override
-    public void delete() {
-        // code to remove a book
+    public void delete(Participant participant) {
+        session.delete(participant);
     }
 
-    private Transaction getTransaction() {
-        return session.beginTransaction();
-    }
 }

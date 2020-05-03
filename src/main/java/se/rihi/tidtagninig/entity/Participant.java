@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @NamedQueries({
         @NamedQuery(name = "FindUserById", query = "from Participant where id = :id"),
-        @NamedQuery(name = "FindUserByName", query = "from Participant where lower(firstName) like :name or lower(lastName) like :name")
+        @NamedQuery(name = "FindUserByName", query = "from Participant where lower(name) like :name")
 })
 
 
@@ -19,10 +19,8 @@ public class Participant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "firstname")
-    private String firstName;
-    @Column(name = "lastname")
-    private String lastName;
+    @Column(name = "name")
+    private String name;
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
@@ -44,20 +42,12 @@ public class Participant implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

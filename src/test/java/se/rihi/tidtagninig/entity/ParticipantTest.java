@@ -7,37 +7,35 @@ import se.rihi.tidtagninig.support.ReflectTool;
 
 import javax.persistence.*;
 
-public class ParticipantTest {
+public class ParticipantTest implements TestEntityInterface {
 
+    @Override
     @Test
     public void typeAnnotations() {
         // assert
         AssertAnnotations.assertType(Participant.class, NamedQueries.class, Entity.class, Table.class);
     }
 
+    @Override
     @Test
 
     public void entity() {
-        // setup
         Entity a = ReflectTool.getClassAnnotation(Participant.class, Entity.class);
-        // assert
         Assert.assertEquals("", a.name());
     }
 
+    @Override
     @Test
     public void table() {
-        // setup
         Table t = ReflectTool.getClassAnnotation(Participant.class, Table.class);
-        // assert
         Assert.assertEquals("participant", t.name());
     }
 
+    @Override
     @Test
     public void fieldAnnotations() {
-        // assert
         AssertAnnotations.assertField(Participant.class, "id", Id.class, GeneratedValue.class);
-        AssertAnnotations.assertField(Participant.class, "firstName", Column.class);
-        AssertAnnotations.assertField(Participant.class, "lastName", Column.class);
+        AssertAnnotations.assertField(Participant.class, "name", Column.class);
         AssertAnnotations.assertField(Participant.class, "email", Column.class);
         AssertAnnotations.assertField(Participant.class, "phone", Column.class);
         AssertAnnotations.assertField(Participant.class, "club", Column.class);
@@ -45,11 +43,10 @@ public class ParticipantTest {
         AssertAnnotations.assertField(Participant.class, "sex", Column.class);
     }
 
+    @Override
     @Test
     public void methodAnnotations() {
-        // assert
-        AssertAnnotations.assertMethod(Participant.class, "getFirstName");
-        AssertAnnotations.assertMethod(Participant.class, "getLastName");
+        AssertAnnotations.assertMethod(Participant.class, "getName");
         AssertAnnotations.assertMethod(Participant.class, "getEmail");
         AssertAnnotations.assertMethod(Participant.class, "getPhone");
         AssertAnnotations.assertMethod(Participant.class, "getClub");

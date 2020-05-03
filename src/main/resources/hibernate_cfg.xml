@@ -23,6 +23,8 @@
 
         <!-- Annotated entity classes -->
         <mapping class="se.rihi.tidtagninig.entity.Participant"/>
+        <mapping class="se.rihi.tidtagninig.entity.Race"/>
+        <mapping class="se.rihi.tidtagninig.entity.RaceEvent"/>
 
     </session-factory>
 </hibernate-configuration>

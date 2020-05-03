@@ -46,5 +46,5 @@ public interface ParticipantManagerInterface {
 
     void update(Participant participant);
 
-    void delete();
+    void delete(Participant participant);
 }
