@@ -21,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        main.run4();
+        main.run5();
         //main.readParticipants(false);
     }
 
@@ -87,6 +87,9 @@ public class Main {
         }
     }
 
+    /**
+     * Creates a RaceEvent with three races and three Participants attached to each Race
+     */
     private void run4() {
         RaceEventManager raceEventManager = new RaceEventManager();
         RaceEvent raceEvent = new RaceEvent();
@@ -99,6 +102,27 @@ public class Main {
         raceEvent.addRace(makeRace("halvan", 21));
         raceEventManager.create(raceEvent);
         raceEventManager.exit(false);
+    }
+
+    /**
+     * Reads all Raceeents and display all its content
+     */
+    private void run5() {
+        RaceEventManager manager = new RaceEventManager();
+        List<RaceEvent> event = manager.read();
+        for (RaceEvent raceEvent: event) {
+            System.out.println(raceEvent.getName());
+            System.out.println(raceEvent.getDate());
+            System.out.println("Följande Tävlingar");
+            for (Race list: raceEvent.getRaceList()) {
+                System.out.println(" " + list.getName() + " - " + list.getDistance());
+                for (Participant participant: list.getParticipants()) {
+                    System.out.println("  " + participant.getName());
+                }
+            }
+            System.out.println(" ");
+        }
+
     }
 
     private Race makeRace(String name, int distance) {

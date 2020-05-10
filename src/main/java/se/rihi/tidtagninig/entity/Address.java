@@ -17,7 +17,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(mappedBy = "participant")
+    @OneToOne(mappedBy = "address")
     private Participant participant;
     @Column(name = "email")
     private String email;
