@@ -7,9 +7,9 @@ import se.rihi.tidtagninig.manager.interfaces.Manager;
 import javax.persistence.Query;
 import java.util.List;
 
-public class EventManager extends Manager {
+public class RaceEventManager extends Manager {
 
-    public EventManager() {
+    public RaceEventManager() {
         setup();
     }
 
@@ -25,7 +25,10 @@ public class EventManager extends Manager {
     }
 
     public RaceEvent findById(String namerQuery, int searchTerm) {
-        return null;
+        Query query = session.createNamedQuery(RaceEvent.FIND_RACE_EVENT_BY_ID);
+        query.setParameter("id", searchTerm);
+        RaceEvent raceEvent = (RaceEvent) query.getSingleResult();
+        return raceEvent;
     }
 
     public List<RaceEvent> findByName(String namedQuery, String searchTerm) {

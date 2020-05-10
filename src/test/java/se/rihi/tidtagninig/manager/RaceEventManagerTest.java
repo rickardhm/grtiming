@@ -2,32 +2,37 @@ package se.rihi.tidtagninig.manager;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import se.rihi.tidtagninig.entity.FinishList;
 import se.rihi.tidtagninig.entity.Race;
 import se.rihi.tidtagninig.entity.RaceEvent;
-import se.rihi.tidtagninig.manager.interfaces.Manager;
 
-import java.rmi.server.RMIClassLoader;
-import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 public class RaceEventManagerTest extends TestCase {
 
-    EventManager eventManager;
+    RaceEventManager raceEventManager;
 
     public void setUp() throws Exception {
         super.setUp();
-        eventManager = new EventManager();
+        raceEventManager = new RaceEventManager();
     }
 
     @Test
     public void testRead() {
-        List<RaceEvent> list = eventManager.read();
+        List<RaceEvent> list = raceEventManager.read();
         for (RaceEvent raceEvent: list) {
-            System.out.println("-> " + raceEvent.getDescription());
+            System.out.println("event: " + raceEvent.getId() + " " + raceEvent.getName());
         }
     }
 
     public void testFindById() {
+        RaceEvent raceEvent = raceEventManager.findById(RaceEvent.FIND_RACE_EVENT_BY_ID, 87);
+        System.out.println("Tävling: " + raceEvent.getName());
+        List<Race> races = raceEvent.getRaceList();
+        for (Race race: races) {
+            System.out.println("  race: " + " " + race.getName() + " " + race.getDistance() + " " + race.getFee());
+        }
     }
 
     public void testFindByName() {
@@ -35,7 +40,7 @@ public class RaceEventManagerTest extends TestCase {
 
     @Test
     public void testFindByRaceEventId() {
-        List<Race> list = eventManager.findByRaceEventId(RaceEvent.FIND_RACE_BY_RACE_EVENT_ID, 87);
+        List<Race> list = raceEventManager.findByRaceEventId(RaceEvent.FIND_RACE_BY_RACE_EVENT_ID, 87);
         for (Race race: list) {
             System.out.println("-> " + race.getName());
         }
@@ -43,6 +48,8 @@ public class RaceEventManagerTest extends TestCase {
 
     private Race createRace(String name, String description, String distance) {
         Race race = new Race();
+        FinishListManager finishListManager = new FinishListManager();
+        List<FinishList> finishLists = finishListManager.read();
         int nr = new Random().nextInt(99);
         race.setName(name + "_" + nr);
         race.setDescription(description);

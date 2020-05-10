@@ -1,13 +1,19 @@
 package se.rihi.tidtagninig;
 
+import se.rihi.tidtagninig.entity.Address;
 import se.rihi.tidtagninig.entity.Participant;
+import se.rihi.tidtagninig.entity.Race;
+import se.rihi.tidtagninig.entity.RaceEvent;
 import se.rihi.tidtagninig.manager.ParticipantManager;
+import se.rihi.tidtagninig.manager.RaceEventManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        main.run1();
+        main.run4();
         //main.readParticipants(false);
     }
 
@@ -32,7 +38,7 @@ public class Main {
         for (Participant participant: list) {
             System.out.println("p: " + participant.getId() + " " + participant.getName());
         }
-        manager.exit();
+        manager.exit(true);
     }
 
     public void readParticipants(boolean toDB) {
@@ -63,7 +69,6 @@ public class Main {
                 String[] anmald = str.split(",");
                 if (!anmald[0].isBlank()) {
                     Participant participant = new Participant();
-                    participant.setEmail(anmald[1]);
                     participant.setName(anmald[2]);
                     participant.setClub(anmald[3]);
                     participant.setSex(anmald[9]);
@@ -78,8 +83,70 @@ public class Main {
             nr++;
         }
         if (toDB) {
-            manager.exit();
+            manager.exit(true);
         }
+    }
+
+    private void run4() {
+        RaceEventManager raceEventManager = new RaceEventManager();
+        RaceEvent raceEvent = new RaceEvent();
+        raceEvent.setDescription("Ett lopp");
+        raceEvent.setEventLocation("vid sjön");
+        raceEvent.setDate(new Date());
+        raceEvent.setName("SommarLoppet");
+        raceEvent.addRace(makeRace("femman", 5));
+        raceEvent.addRace(makeRace("tian", 10));
+        raceEvent.addRace(makeRace("halvan", 21));
+        raceEventManager.create(raceEvent);
+        raceEventManager.exit(false);
+    }
+
+    private Race makeRace(String name, int distance) {
+        Race race = new Race();
+        race.setRaceDate(new Date());
+        race.setName(name);
+        race.setDistance(distance + "km");
+        race.setDescription("ett lopp");
+        race.setFee((distance * 10 + ""));
+        race.addParticipant(makeParticipant());
+        race.addParticipant(makeParticipant());
+        race.addParticipant(makeParticipant());
+        return race;
+    }
+
+    private Participant makeParticipant() {
+        Participant participant = new Participant();
+        participant.setName(maketName());
+        participant.addAddress(makeAdress(participant.getName()));
+        participant.setClub(makeClub());
+        System.out.println("name " + participant.getName());
+        return participant;
+    }
+
+    private Address makeAdress(String name) {
+        Address address = new Address();
+        address.setEmail(makeEmal(name));
+        address.setPhone("90510");
+        return address;
+    }
+
+    private String makeEmal(String name) {
+        String mail = name.replace(" ", ".") + "@foo.com";
+        return mail.toLowerCase();
+    }
+
+    private String maketName() {
+        String[] sNames = {"james", "Ian", "Emely", "Kurt", "Loise", "Robert" };
+        String[] lName = {"Forsberg", "Lane", "Lind", "Ohlsson", "Flemming", "Bond"};
+        Random random = new Random();
+        String name = sNames[random.nextInt(sNames.length)] + " " + lName[random.nextInt(lName.length)];
+        return name;
+    }
+
+    private String makeClub() {
+        String[] club = {"SLDK", "stockholm gerillalöpare", "Team skavsåret"};
+        Random random = new Random();
+        return club[random.nextInt(club.length)];
     }
 
     private void printHeadlines(String str) {
@@ -89,4 +156,5 @@ public class Main {
             System.out.println("str[" + (i++) + "] -> " + person);
         }
     }
+
 }

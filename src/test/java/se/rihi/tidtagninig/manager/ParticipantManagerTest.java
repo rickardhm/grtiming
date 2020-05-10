@@ -19,20 +19,25 @@ public class ParticipantManagerTest extends TestCase {
     public void testRead() {
         List<Participant> list = manager.read();
         for (Participant p: list) {
-            System.out.println(p.getName());
+            System.out.print(p.getId() + " " );
+            System.out.print(p.getName() + " ");
+            if (null != p.getAddress()) {
+                System.out.print(p.getAddress().getEmail());
+            }
+            System.out.println();
         }
         assertTrue(list.size() > 0);
     }
 
     @Test
     public void testFindById() {
-        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 6);
-        System.out.println("p " + p.getName());
+        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 256);
+        System.out.println("p " + p.getName() + " " + p.getClub() + " " + p.getAddress().getEmail());
     }
 
     @Test
     public void testFindByName() {
-        List<Participant> list = manager.findByName(Participant.FIND_USER_BY_NAME, "sv%");
+        List<Participant> list = manager.findByName(Participant.FIND_USER_BY_NAME, "a%");
         for (Participant p: list) {
             System.out.println("p " + p.getName());
         }

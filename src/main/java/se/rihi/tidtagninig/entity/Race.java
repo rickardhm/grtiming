@@ -2,6 +2,9 @@ package se.rihi.tidtagninig.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "FindRaceById", query = "from Race where id = :id"),
@@ -18,20 +21,53 @@ public class Race implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @OneToMany(mappedBy = "race", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participant> participants = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private RaceEvent raceEvent;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "raceDate")
+    private Date raceDate;
     @Column(name = "fee")
     private String fee;
     @Column(name = "distance")
     private String distance;
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Participant> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participant> participants) {
+        this.participants = participants;
+    }
+
+    public void addParticipant(Participant participant) {
+        participants.add(participant);
+        participant.setRace(this);
+    }
+
+    public void removeParticipant(Participant participant) {
+        participants.remove(participant);
+        participant.setRace(null);
+    }
+
+    public RaceEvent getRaceEvent() {
+        return raceEvent;
+    }
+
+    public void setRaceEvent(RaceEvent raceEvent) {
+        this.raceEvent = raceEvent;
     }
 
     public String getName() {
@@ -48,6 +84,14 @@ public class Race implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getRaceDate() {
+        return raceDate;
+    }
+
+    public void setRaceDate(Date raceDate) {
+        this.raceDate = raceDate;
     }
 
     public String getFee() {

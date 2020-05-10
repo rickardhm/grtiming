@@ -19,12 +19,13 @@ public class Participant implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Race race;
     @Column(name = "name")
     private String name;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "phone")
-    private String phone;
     @Column(name = "club")
     private String club;
     @Column(name = "age")
@@ -42,28 +43,33 @@ public class Participant implements Serializable {
         this.id = id;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void addAddress(Address address) {
+        this.address = address;
+        address.setParticipant(this);
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getClub() {
