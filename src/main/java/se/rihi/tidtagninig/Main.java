@@ -20,11 +20,11 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         //System.out.println(main.getMax(300));
-        int eventId = main.makeRaeEvent();
+        /*int eventId = main.makeRaeEvent();
         RaceManager raceManager = new RaceManager();
         Race race = raceManager.findById(425);
-        main.generateStartNumber(race, 100);
-        //main.displayRace(403);
+        main.generateStartNumber(race, 100);*/
+        main.displayRace(425);
         //main.readParticipants(false);
     }
 

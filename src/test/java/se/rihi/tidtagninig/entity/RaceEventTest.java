@@ -32,6 +32,8 @@ public class RaceEventTest implements TestEntityInterface {
     @Test
     public void fieldAnnotations() {
         AssertAnnotations.assertField(RaceEvent.class, "id", Id.class, GeneratedValue.class);
+        AssertAnnotations.assertField(RaceEvent.class, "raceList", OneToMany.class);
+        AssertAnnotations.assertField(RaceEvent.class, "name", Column.class);
         AssertAnnotations.assertField(RaceEvent.class, "description", Column.class);
         AssertAnnotations.assertField(RaceEvent.class, "date", Column.class);
         AssertAnnotations.assertField(RaceEvent.class, "eventLocation", Column.class);
@@ -42,7 +44,10 @@ public class RaceEventTest implements TestEntityInterface {
     @Test
     public void methodAnnotations() {
         AssertAnnotations.assertMethod(RaceEvent.class, "getId");
+        AssertAnnotations.assertMethod(RaceEvent.class, "getRaceList");
+        AssertAnnotations.assertMethod(RaceEvent.class, "getName");
         AssertAnnotations.assertMethod(RaceEvent.class, "getDescription");
+        AssertAnnotations.assertMethod(RaceEvent.class, "getRaceList");
         AssertAnnotations.assertMethod(RaceEvent.class, "getDate");
         AssertAnnotations.assertMethod(RaceEvent.class, "getEventLocation");
     }

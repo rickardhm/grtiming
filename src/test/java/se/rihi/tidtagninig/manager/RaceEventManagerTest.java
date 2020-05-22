@@ -27,7 +27,7 @@ public class RaceEventManagerTest extends TestCase {
     }
 
     public void testFindById() {
-        RaceEvent raceEvent = raceEventManager.findById(RaceEvent.FIND_RACE_EVENT_BY_ID, 87);
+        RaceEvent raceEvent = raceEventManager.findById(RaceEvent.FIND_RACE_EVENT_BY_ID, 314);
         System.out.println("Tävling: " + raceEvent.getName());
         List<Race> races = raceEvent.getRaceList();
         for (Race race: races) {

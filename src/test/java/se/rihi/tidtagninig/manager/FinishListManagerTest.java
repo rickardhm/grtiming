@@ -1,6 +1,7 @@
 package se.rihi.tidtagninig.manager;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 import se.rihi.tidtagninig.entity.FinishList;
 
 import java.util.List;
@@ -14,12 +15,14 @@ public class FinishListManagerTest extends TestCase {
         manager = new FinishListManager();
     }
 
+    @Test
     public void testCreate() {
         FinishList finishList = new FinishList();
         ParticipantManager participantManager = new ParticipantManager();
         participantManager.read();
     }
 
+    @Test
     public void testRead() {
         List<FinishList> finishLists = manager.read();
         for (FinishList list: finishLists) {

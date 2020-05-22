@@ -20,7 +20,7 @@ public class FinishListManager extends Manager {
     }
 
     public List<FinishList> read() {
-        Query q = session.createQuery("from RaceEvent");
+        Query q = session.createQuery("from FinishList");
         List<FinishList> list = q.getResultList();
         return list;
     }

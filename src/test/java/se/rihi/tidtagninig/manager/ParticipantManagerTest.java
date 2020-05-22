@@ -31,7 +31,7 @@ public class ParticipantManagerTest extends TestCase {
 
     @Test
     public void testFindById() {
-        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 256);
+        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 301);
         System.out.println("p " + p.getName() + " " + p.getClub() + " " + p.getAddress().getEmail());
     }
 

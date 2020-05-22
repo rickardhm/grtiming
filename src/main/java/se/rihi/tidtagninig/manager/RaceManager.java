@@ -43,10 +43,10 @@ public class RaceManager extends Manager {
     }
 
     public void update(Race race) {
-
+        session.update(race);
     }
 
-    public void delete() {
-
+    public void delete(Race race) {
+        session.delete(race);
     }
 }
