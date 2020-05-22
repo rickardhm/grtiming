@@ -8,7 +8,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "FindRaceEventById", query = "from RaceEvent where id = :id"),
-        @NamedQuery(name = "FindRaceByRaceEventId", query = "from Race where race_event_id =:race_event_id"),
+        @NamedQuery(name = "FindRaceByRaceEventId", query = "from Race where id =:race_event_id"),
         @NamedQuery(name = "FindRaceEventByName", query = "from RaceEvent where lower(name) like :name")
 })
 

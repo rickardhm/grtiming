@@ -4,6 +4,9 @@ import se.rihi.tidtagninig.entity.Participant;
 import se.rihi.tidtagninig.manager.interfaces.Manager;
 
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ParticipantManager extends Manager {
@@ -30,6 +33,17 @@ public class ParticipantManager extends Manager {
         return p;
     }
 
+    public int getMaxStartNumber(int raceId) {
+        Query q = session.createNamedQuery(Participant.FIND_MAX_START_NUMBER);
+        q.setParameter("raceId", raceId);
+        Object o =  q.getSingleResult();
+        int nr = 0;
+        if (null != o) {
+            nr = (int) o;
+        }
+        return nr;
+    }
+
     public List<Participant> findByName(String namedQuery, String searchTerm) {
         Query q = session.createNamedQuery(namedQuery);
         q.setParameter("name", searchTerm);
@@ -39,6 +53,7 @@ public class ParticipantManager extends Manager {
 
     public void update(Participant participant) {
         session.update(participant);
+        getTransaction().commit();
     }
 
     public void delete(Participant participant) {

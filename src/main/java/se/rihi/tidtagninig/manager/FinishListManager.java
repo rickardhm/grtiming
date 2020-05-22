@@ -1,5 +1,6 @@
 package se.rihi.tidtagninig.manager;
 
+import se.rihi.tidtagninig.entity.Participant;
 import se.rihi.tidtagninig.entity.RaceEvent;
 import se.rihi.tidtagninig.entity.FinishList;
 import se.rihi.tidtagninig.manager.interfaces.Manager;
@@ -35,8 +36,7 @@ public class FinishListManager extends Manager {
         return null;
     }
 
-    public void update(FinishList finishList) {
-
+    public void update(FinishList finishList, Participant participant) {
     }
 
     public void delete() {

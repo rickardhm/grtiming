@@ -40,7 +40,7 @@ public class RaceEventManagerTest extends TestCase {
 
     @Test
     public void testFindByRaceEventId() {
-        List<Race> list = raceEventManager.findByRaceEventId(RaceEvent.FIND_RACE_BY_RACE_EVENT_ID, 87);
+        List<Race> list = raceEventManager.findByRaceEventId(87);
         for (Race race: list) {
             System.out.println("-> " + race.getName());
         }

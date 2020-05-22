@@ -2,18 +2,21 @@ package se.rihi.tidtagninig.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "FindUserById", query = "from Participant where id = :id"),
+        @NamedQuery(name = "MaxStartNumber", query = "select MAX(startNumber) from Participant where race.id = :raceId"),
         @NamedQuery(name = "FindUserByName", query = "from Participant where lower(name) like :name")
 })
 
 
 @Entity
 @Table(name = "participant")
-public class Participant implements Serializable {
+public class Participant implements Serializable, Comparable<Participant> {
 
     public static final String FIND_USER_BY_ID = "FindUserById";
+    public static final String FIND_MAX_START_NUMBER = "MaxStartNumber";
     public static final String FIND_USER_BY_NAME = "FindUserByName";
 
     @Id
@@ -24,6 +27,8 @@ public class Participant implements Serializable {
     private Address address;
     @ManyToOne(fetch = FetchType.LAZY)
     private Race race;
+    @Column(name = "regDate")
+    private Date regDate;
     @Column(name = "name")
     private String name;
     @Column(name = "club")
@@ -32,6 +37,8 @@ public class Participant implements Serializable {
     private int age;
     @Column(name = "sex")
     private String sex;
+    @Column(name = "start_number")
+    private int startNumber;
 
     public Participant() {}
 
@@ -64,6 +71,14 @@ public class Participant implements Serializable {
         this.race = race;
     }
 
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
     public String getName() {
         return name;
     }
@@ -94,5 +109,18 @@ public class Participant implements Serializable {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public int getStartNumber() {
+        return startNumber;
+    }
+
+    public void setStartNumber(int startNumber) {
+        this.startNumber = startNumber;
+    }
+
+    @Override
+    public int compareTo(Participant o) {
+        return getRegDate().compareTo(o.getRegDate());
     }
 }

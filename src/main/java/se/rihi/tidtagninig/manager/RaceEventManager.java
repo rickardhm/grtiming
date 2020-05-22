@@ -35,9 +35,9 @@ public class RaceEventManager extends Manager {
         return null;
     }
 
-    public List<Race> findByRaceEventId(String namedQuery, int serchTerm) {
+    public List<Race> findByRaceEventId(int raceEventId) {
         Query query = session.createNamedQuery(RaceEvent.FIND_RACE_BY_RACE_EVENT_ID);
-        query.setParameter("race_event_id", serchTerm);
+        query.setParameter("race_event_id", raceEventId);
         List<Race> list = query.getResultList();
         return list;
     }

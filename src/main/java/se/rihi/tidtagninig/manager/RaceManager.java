@@ -28,15 +28,18 @@ public class RaceManager extends Manager {
         return list;
     }
 
-    public Race findById(String namerQuery, int searchTerm) {
-        Query q = session.createNamedQuery(namerQuery);
-        q.setParameter("id", searchTerm);
+    public Race findById(int raceId) {
+        Query q = session.createNamedQuery(Race.FIND_RACE_BY_ID);
+        q.setParameter("id", raceId);
         Race race = (Race) q.getSingleResult();
         return race;
     }
 
-    public List<Race> findByName(String namedQuery, String searchTerm) {
-        return null;
+    public List<Race> findByName(String searchTerm) {
+        Query query = session.createNamedQuery(Race.FIND_RACE_BY_NAME);
+        query.setParameter("name", searchTerm);
+        List<Race> list = query.getResultList();
+        return list;
     }
 
     public void update(Race race) {
