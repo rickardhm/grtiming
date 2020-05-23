@@ -1,13 +1,12 @@
 package se.rihi.tidtagninig;
 
-import se.rihi.tidtagninig.entity.Address;
-import se.rihi.tidtagninig.entity.Participant;
-import se.rihi.tidtagninig.entity.Race;
-import se.rihi.tidtagninig.entity.RaceEvent;
+import se.rihi.tidtagninig.entity.*;
+import se.rihi.tidtagninig.manager.FinishListManager;
 import se.rihi.tidtagninig.manager.ParticipantManager;
 import se.rihi.tidtagninig.manager.RaceEventManager;
 import se.rihi.tidtagninig.manager.RaceManager;
 
+import java.awt.image.FilteredImageSource;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,12 +19,38 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         //System.out.println(main.getMax(300));
-        /*int eventId = main.makeRaeEvent();
+        int eventId = main.makeRaeEvent();
+        System.out.println(eventId);
         RaceManager raceManager = new RaceManager();
-        Race race = raceManager.findById(425);
-        main.generateStartNumber(race, 100);*/
-        main.displayRace(425);
+        Race race = raceManager.findById(4571);
+        main.addFinish(race);
+        raceManager.exit(false);
+        //System.out.println(main.getMaxPos(4571));
+        /*RaceManager raceManager = new RaceManager();
+        Race race = raceManager.findById(639);
+        main.generateStartNumber(race, 100);
+        raceManager.exit(false);*/
+        /*RaceManager raceManager = new RaceManager();
+        Race r1 = raceManager.findById(447);
+        int max = raceManager.findMaxStartNumber(r1.getId());
+        Participant p1 = main.makeParticipant(r1, (max +1));
+        r1.addParticipant(p1);
+        raceManager.update(r1);
+        raceManager.getTransaction().commit();*/
+        //main.displayRace(1489);
+        //main.listSomeParticipants();
         //main.readParticipants(false);
+    }
+
+    private void listSomeParticipants() {
+        Race race = new Race();
+        List<Participant> list = new ArrayList<>();
+        for (int i = 1; i < 11; i++) {
+            list.add(makeParticipant(race, i));
+        }
+        for (Participant p: list) {
+            System.out.println(p.getName() + " " + p.getClub());
+        }
     }
 
     private int getMax(int raceId) {
@@ -37,7 +62,14 @@ public class Main {
                 nr = (int) p;
             }
         }
+        manager.exit(false);
         return nr;
+    }
+
+    private int getMaxPos(int raceId) {
+        FinishListManager manager = new FinishListManager();
+        Object o = manager.getMax(raceId);
+        return (int) o;
     }
 
     private void run1() {
@@ -112,9 +144,9 @@ public class Main {
         raceEvent.setEventLocation("vid sjön");
         raceEvent.setDate(new Date());
         raceEvent.setName("SommarLoppet");
-        raceEvent.addRace(makeRace("femti", 50));
-        raceEvent.addRace(makeRace("hundra", 100));
-        raceEvent.addRace(makeRace("tvåhundra", 200));
+        raceEvent.addRace(makeRace((String) getRndName(new Object[]{"Skogslöpet", "Snöracet", "Myrruset", "Bergsjoggen"}), (int) getRndName(new Object[]{10, 20, 40, 80}), 10));
+        raceEvent.addRace(makeRace((String) getRndName(new Object[]{"Skogslöpet", "Snöracet", "Myrruset", "Bergsjoggen"}), (int) getRndName(new Object[]{10, 20, 40, 80}), 50));
+        raceEvent.addRace(makeRace((String) getRndName(new Object[]{"Skogslöpet", "Snöracet", "Myrruset", "Bergsjoggen"}), (int) getRndName(new Object[]{10, 20, 40, 80}), 100));
         raceEventManager.create(raceEvent);
         raceEventManager.exit(false);
         return raceEvent.getId();
@@ -155,44 +187,54 @@ public class Main {
         }
     }
 
+    private void addFinish(Race race) {
+        FinishListManager listManager = new FinishListManager();
+        FinishList finishList = new FinishList();
+        finishList.setRace(race);
+        listManager.addFinish(finishList);
+    }
+
     private void generateStartNumber(Race race, int startPoint) {
         ParticipantManager pm = new ParticipantManager();
         List<Participant> list = race.getParticipants();
         Collections.sort(list);
+        int nr = startPoint;
         for (Participant participant: list) {
-            int max = getMax(participant.getRace().getId());
-            int nr = 0;
-            if (max < startPoint) {
-                nr = startPoint + max + 1;
-            } else {
-                nr = max + 1;
-            }
+            nr++;
             participant.setStartNumber(nr);
             pm.update(participant);
         }
+        pm.exit(false);
     }
 
-    private Race makeRace(String name, int distance) {
+    private Race makeRace(String name, int distance, int numberOfPartcipants) {
         Race race = new Race();
         race.setRaceDate(new Date());
+        race.addFinish(makeFinishLIst(race));
         race.setName(name);
         race.setDistance(distance + "km");
-        race.setDescription("ett lopp");
+        race.setDescription("Beskrivning av loppet");
         race.setFee((distance * 10 + ""));
-        race.addParticipant(makeParticipant(race));
-        race.addParticipant(makeParticipant(race));
-        race.addParticipant(makeParticipant(race));
+        for (int i=0; i < numberOfPartcipants; i++) {
+            race.addParticipant(makeParticipant(race, (i + 1)));
+        }
         return race;
     }
 
-    private Participant makeParticipant(Race race) {
+    private FinishList makeFinishLIst(Race race) {
+        FinishList finishList = new FinishList();
+        return finishList;
+    }
+
+    private Participant makeParticipant(Race race, int startNumber) {
         Participant participant = new Participant();
         participant.setName(maketName());
+        participant.setAge((int) getRndName(new Object[]{28, 34, 46, 55, 52, 38, 26}));
         participant.addAddress(makeAdress(participant.getName()));
         participant.setClub(makeClub());
         participant.setRegDate(new Date());
         participant.setRace(race);
-        participant.setStartNumber(0);
+        participant.setStartNumber(startNumber);
         return participant;
     }
 
@@ -209,15 +251,35 @@ public class Main {
     }
 
     private String maketName() {
-        String[] sNames = {"james", "Ian", "Emely", "Kurt", "Loise", "Robert" };
-        String[] lName = {"Forsberg", "Lane", "Lind", "Ohlsson", "Flemming", "Bond"};
         Random random = new Random();
-        String name = sNames[random.nextInt(sNames.length)] + " " + lName[random.nextInt(lName.length)];
+        Object[] firstNames = null;
+        Object[] lastNames = null;
+        try {
+            Stream stream1 = Files.lines(Paths.get("/home/rickard/names.txt"));
+            firstNames = stream1.toArray();
+            Stream stream2 = Files.lines(Paths.get("/home/rickard/last_names.txt"));
+            lastNames = stream2.toArray();
+            //System.out.println(sList[random.nextInt(sList.length)]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (null == firstNames) {
+            firstNames = new Object[]{"james", "Ian", "Emely", "Kurt", "Loise", "Robert", "Ben", "Lotta", "Nisse"};
+        }
+        if (null == lastNames) {
+            lastNames = new Object[]{"Forsberg", "Lane", "Lind", "Ohlsson", "Flemming", "Bond", "Hur", "Svensson", "Hult"};
+        }
+        String name = firstNames[random.nextInt(firstNames.length)] + " " + lastNames[random.nextInt(lastNames.length)];
         return name;
     }
 
+    private Object getRndName(Object[] objects) {
+        Random random = new Random();
+        return objects[random.nextInt(objects.length)];
+    }
+
     private String makeClub() {
-        String[] club = {"SLDK", "stockholm gerillalöpare", "Team skavsåret"};
+        String[] club = {"SLDK", "stockholm gerillalöpare", "Team skavsåret", "Linnea"};
         Random random = new Random();
         return club[random.nextInt(club.length)];
     }

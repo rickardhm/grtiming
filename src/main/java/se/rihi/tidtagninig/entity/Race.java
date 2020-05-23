@@ -1,6 +1,7 @@
 package se.rihi.tidtagninig.entity;
 
 import javax.persistence.*;
+import javax.xml.namespace.QName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "FindRaceById", query = "from Race where id = :id"),
+        @NamedQuery(name = "FinMaxStartNumber", query = "select MAX(startNumber) from Participant where race.id = :raceId"),
         @NamedQuery(name = "FindRaceByName", query = "from Race where lower(name) like :name")
 })
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class Race implements Serializable {
 
     public static final String FIND_RACE_BY_ID = "FindRaceById";
+    public static final String FIND_MAX_START_NUMBER = "FinMaxStartNumber";
     public static final String FIND_RACE_BY_NAME = "FindRaceByName";
 
     @Id
@@ -25,6 +28,8 @@ public class Race implements Serializable {
     private List<Participant> participants = new ArrayList<>();
     @ManyToOne(fetch = FetchType.LAZY)
     private RaceEvent raceEvent;
+    @OneToMany(mappedBy = "race",  cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FinishList> finishList = new ArrayList<>();
     @Column(name = "name")
     private String name;
     @Column(name = "description")
@@ -68,6 +73,18 @@ public class Race implements Serializable {
 
     public void setRaceEvent(RaceEvent raceEvent) {
         this.raceEvent = raceEvent;
+    }
+
+    public List<FinishList> getFinishList() {
+        return finishList;
+    }
+
+    public void setFinishList(List<FinishList> finishList) {
+        this.finishList = finishList;
+    }
+
+    public void addFinish(FinishList finish) {
+        this.finishList.add(finish);
     }
 
     public String getName() {

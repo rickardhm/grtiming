@@ -6,6 +6,7 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "FindFinishListById", query = "from FinishList where id = :id"),
+        @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList where race_id = :raceId"),
         @NamedQuery(name = "FindFinishListByName", query = "from FinishList where lower(name) like :name")
 })
 
@@ -14,12 +15,13 @@ import java.util.Date;
 public class FinishList implements Serializable {
 
     public static final String FIND_FINISH_LIST_BY_ID = "FindFinishListById";
+    public static final String GET_MAX_POSITION = "GetMaxPosition";
     public static final String FIND_FINISH_LIST_BY_NAME = "FindFinishListByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Race race;
     @Column(name = "finishTime")
     private Date finishTime;
@@ -34,6 +36,14 @@ public class FinishList implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
     }
 
     public Date getFinishTime() {

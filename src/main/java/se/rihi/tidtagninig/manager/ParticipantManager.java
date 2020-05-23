@@ -4,9 +4,6 @@ import se.rihi.tidtagninig.entity.Participant;
 import se.rihi.tidtagninig.manager.interfaces.Manager;
 
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ParticipantManager extends Manager {

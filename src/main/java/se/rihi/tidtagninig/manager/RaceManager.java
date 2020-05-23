@@ -42,6 +42,13 @@ public class RaceManager extends Manager {
         return list;
     }
 
+    public int findMaxStartNumber(int raceId) {
+        Query query = session.createNamedQuery(Race.FIND_MAX_START_NUMBER);
+        query.setParameter("raceId", raceId);
+        int max = query.getFirstResult();
+        return max;
+    }
+
     public void update(Race race) {
         session.update(race);
     }
