@@ -5,6 +5,7 @@ import se.rihi.tidtagninig.system.manager.FinishListManager;
 import se.rihi.tidtagninig.system.manager.ParticipantManager;
 import se.rihi.tidtagninig.system.manager.RaceEventManager;
 import se.rihi.tidtagninig.process.util.Commons;
+import se.rihi.tidtagninig.system.manager.RaceManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +23,10 @@ public class Main {
         //System.out.println(main.getMax(300));
         /*int eventId = main.makeRaeEvent();
         System.out.println(eventId);*/
-        //commons.registerFinish(7720);
+        //RaceManager raceManager = new RaceManager();
+        //Race race = raceManager.findById(7720);
+        //commons.registerFinish(race);
+        //commons.addFinisher();
         //System.out.println(main.getMaxPos(4571));
         /*RaceManager raceManager = new RaceManager();
         Race race = raceManager.findById(639);
@@ -86,51 +90,7 @@ public class Main {
         manager.exit(true);
     }
 
-    public void readParticipants(boolean toDB) {
-        String fileName = "participants.csv";
-        List<String> list = new ArrayList();
-        ParticipantManager manager = null;
 
-        //read file into stream, try-with-resources
-        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-
-
-            list = stream
-                    .filter(line -> !line.startsWith("line3"))
-                    .map(String::toUpperCase)
-                    .collect(Collectors.toList());
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int nr = 0;
-        for (String str: list) {
-            if (nr == 0) {
-                System.out.println(str);
-                printHeadlines(str);
-            } else {
-                String[] anmald = str.split(",");
-                if (!anmald[0].isBlank()) {
-                    Participant participant = new Participant();
-                    participant.setName(anmald[2]);
-                    participant.setClub(anmald[3]);
-                    participant.setGender(anmald[9]);
-                    if (toDB) {
-                        if (null == manager) {
-                            manager = new ParticipantManager();
-                        }
-                        manager.create(participant);
-                    }
-                }
-            }
-            nr++;
-        }
-        if (toDB) {
-            manager.exit(true);
-        }
-    }
 
     /**
      * Creates a RaceEvent with three races and three Participants attached to each Race
@@ -283,12 +243,6 @@ public class Main {
         return club[random.nextInt(club.length)];
     }
 
-    private void printHeadlines(String str) {
-        String[] anmald = str.split(",");
-        int i = 0;
-        for (String person: anmald) {
-            System.out.println("str[" + (i++) + "] -> " + person);
-        }
-    }
+
 
 }
