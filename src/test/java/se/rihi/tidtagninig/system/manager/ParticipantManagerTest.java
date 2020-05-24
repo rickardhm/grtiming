@@ -1,8 +1,8 @@
-package se.rihi.tidtagninig.manager;
+package se.rihi.tidtagninig.system.manager;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import se.rihi.tidtagninig.entity.Participant;
+import se.rihi.tidtagninig.system.entity.Participant;
 
 import java.util.List;
 
@@ -15,7 +15,6 @@ public class ParticipantManagerTest extends TestCase {
         manager = new ParticipantManager();
     }
 
-    @Test
     public void testRead() {
         List<Participant> list = manager.read();
         for (Participant p: list) {
@@ -29,13 +28,11 @@ public class ParticipantManagerTest extends TestCase {
         assertTrue(list.size() > 0);
     }
 
-    @Test
     public void testFindById() {
-        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 301);
+        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 7748);
         System.out.println("p " + p.getName() + " " + p.getClub() + " " + p.getAddress().getEmail());
     }
 
-    @Test
     public void testFindByName() {
         List<Participant> list = manager.findByName(Participant.FIND_USER_BY_NAME, "a%");
         for (Participant p: list) {

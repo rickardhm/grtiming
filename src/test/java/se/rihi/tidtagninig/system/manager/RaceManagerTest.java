@@ -1,8 +1,8 @@
-package se.rihi.tidtagninig.manager;
+package se.rihi.tidtagninig.system.manager;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import se.rihi.tidtagninig.entity.Race;
+import se.rihi.tidtagninig.system.entity.Race;
 
 import java.util.List;
 
@@ -15,7 +15,6 @@ public class RaceManagerTest extends TestCase {
         raceManager = new RaceManager();
     }
 
-    @Test
     public void testRead() {
         List<Race> list = raceManager.read();
         for (Race race: list) {

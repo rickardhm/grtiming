@@ -1,12 +1,11 @@
-package se.rihi.tidtagninig;
+package se.rihi.tidtagninig.experience;
 
-import se.rihi.tidtagninig.entity.*;
-import se.rihi.tidtagninig.manager.FinishListManager;
-import se.rihi.tidtagninig.manager.ParticipantManager;
-import se.rihi.tidtagninig.manager.RaceEventManager;
-import se.rihi.tidtagninig.manager.RaceManager;
+import se.rihi.tidtagninig.system.entity.*;
+import se.rihi.tidtagninig.system.manager.FinishListManager;
+import se.rihi.tidtagninig.system.manager.ParticipantManager;
+import se.rihi.tidtagninig.system.manager.RaceEventManager;
+import se.rihi.tidtagninig.process.util.Commons;
 
-import java.awt.image.FilteredImageSource;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,15 +15,14 @@ import java.util.stream.Stream;
 
 public class Main {
 
+    private static Commons commons = new Commons();
+
     public static void main(String[] args) {
         Main main = new Main();
         //System.out.println(main.getMax(300));
-        int eventId = main.makeRaeEvent();
-        System.out.println(eventId);
-        RaceManager raceManager = new RaceManager();
-        Race race = raceManager.findById(4571);
-        main.addFinish(race);
-        raceManager.exit(false);
+        /*int eventId = main.makeRaeEvent();
+        System.out.println(eventId);*/
+        //commons.registerFinish(7720);
         //System.out.println(main.getMaxPos(4571));
         /*RaceManager raceManager = new RaceManager();
         Race race = raceManager.findById(639);
@@ -37,7 +35,7 @@ public class Main {
         r1.addParticipant(p1);
         raceManager.update(r1);
         raceManager.getTransaction().commit();*/
-        //main.displayRace(1489);
+        main.displayRace(7720);
         //main.listSomeParticipants();
         //main.readParticipants(false);
     }
@@ -68,7 +66,7 @@ public class Main {
 
     private int getMaxPos(int raceId) {
         FinishListManager manager = new FinishListManager();
-        Object o = manager.getMax(raceId);
+        Object o = manager.getMaxPosition(raceId);
         return (int) o;
     }
 
@@ -118,7 +116,7 @@ public class Main {
                     Participant participant = new Participant();
                     participant.setName(anmald[2]);
                     participant.setClub(anmald[3]);
-                    participant.setSex(anmald[9]);
+                    participant.setGender(anmald[9]);
                     if (toDB) {
                         if (null == manager) {
                             manager = new ParticipantManager();
@@ -176,22 +174,23 @@ public class Main {
     private void displayRace(int receId) {
         RaceEventManager eventManager = new RaceEventManager();
         for (Race race: eventManager.findByRaceEventId(receId)) {
-            generateStartNumber(race, 100);
+            List<FinishList> finishLists = race.getFinishList();
             System.out.println(race.getName() + " " + race.getDistance());
             List<Participant> list = race.getParticipants();
             Collections.sort(list);
             for (Participant participant: list) {
                 System.out.print(" ");
-                System.out.println(participant.getName() + " " + participant.getStartNumber() + " " + participant.getRegDate());
+                System.out.print("Nr: " + participant.getStartNumber() + " name: " + participant.getName()  + " age: " + participant.getAge());
+                List<FinishList> finish = finishLists.stream().filter(p -> p.getNr() == participant.getStartNumber()).collect(Collectors.toList());
+                if (finish.size() > 0) {
+                    Date start = race.getRaceDate();
+                    Date fin = finish.get(0).getFinishTime();
+                    long result = fin.getTime() - start.getTime();
+                    System.out.print(" position: " + finish.get(0).getPosition() + " - " + commons.displayFinishTime(start, fin));
+                }
+                System.out.println();
             }
         }
-    }
-
-    private void addFinish(Race race) {
-        FinishListManager listManager = new FinishListManager();
-        FinishList finishList = new FinishList();
-        finishList.setRace(race);
-        listManager.addFinish(finishList);
     }
 
     private void generateStartNumber(Race race, int startPoint) {

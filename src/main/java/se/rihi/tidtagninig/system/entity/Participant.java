@@ -1,4 +1,4 @@
-package se.rihi.tidtagninig.entity;
+package se.rihi.tidtagninig.system.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -35,8 +35,8 @@ public class Participant implements Serializable, Comparable<Participant> {
     private String club;
     @Column(name = "age")
     private int age;
-    @Column(name = "sex")
-    private String sex;
+    @Column(name = "gender")
+    private String gender;
     @Column(name = "start_number")
     private int startNumber;
 
@@ -103,12 +103,12 @@ public class Participant implements Serializable, Comparable<Participant> {
         this.age = age;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGender() {
+        return gender;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public int getStartNumber() {

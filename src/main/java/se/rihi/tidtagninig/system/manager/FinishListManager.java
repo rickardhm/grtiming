@@ -1,11 +1,10 @@
-package se.rihi.tidtagninig.manager;
+package se.rihi.tidtagninig.system.manager;
 
-import se.rihi.tidtagninig.entity.RaceEvent;
-import se.rihi.tidtagninig.entity.FinishList;
-import se.rihi.tidtagninig.manager.interfaces.Manager;
+import se.rihi.tidtagninig.system.entity.RaceEvent;
+import se.rihi.tidtagninig.system.entity.FinishList;
+import se.rihi.tidtagninig.system.manager.interfaces.Manager;
 
 import javax.persistence.Query;
-import java.util.Date;
 import java.util.List;
 
 public class FinishListManager extends Manager {
@@ -14,9 +13,8 @@ public class FinishListManager extends Manager {
         setup();
     }
 
-    public FinishList create(FinishList finishList) {
+    public void create(FinishList finishList) {
         session.persist(finishList);
-        return finishList;
     }
 
     public List<FinishList> read() {
@@ -32,7 +30,7 @@ public class FinishListManager extends Manager {
         return startList;
     }
 
-    public Object getMax(int raceId) {
+    public Object getMaxPosition(int raceId) {
         Query query = session.createNamedQuery(FinishList.GET_MAX_POSITION);
         query.setParameter("raceId", raceId);
         Object pos = query.getSingleResult();
@@ -43,27 +41,12 @@ public class FinishListManager extends Manager {
      * Will add finish time and position to this finishList
      * @param finish the finishList to update
      */
-    public void addFinish(FinishList finish) {
-        int nr;
-        Object o = getMax(finish.getRace().getId());
-        if (null == o) {
-            nr = 1;
-        } else {
-            nr = (int) o + 1;
-        }
-        finish.setPosition(nr);
-        finish.setFinishTime(new Date());
+    public void updateFinish(FinishList finish) {
         session.persist(finish);
-        getTransaction().commit();
     }
 
     public List<FinishList> findByParticipant(String namedQuery, String searchTerm) {
         return null;
-    }
-
-    public void update(FinishList finishList) {
-        session.update(finishList);
-        getTransaction().commit();
     }
 
     public void delete(FinishList finishList) {

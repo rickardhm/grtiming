@@ -1,4 +1,4 @@
-package se.rihi.tidtagninig.entity;
+package se.rihi.tidtagninig.system.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -6,6 +6,7 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "FindFinishListById", query = "from FinishList where id = :id"),
+        @NamedQuery(name = "FindFinishByStartNumber", query = "from FinishList where nr = :nr"),
         @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList where race_id = :raceId"),
         @NamedQuery(name = "FindFinishListByName", query = "from FinishList where lower(name) like :name")
 })
@@ -15,6 +16,7 @@ import java.util.Date;
 public class FinishList implements Serializable {
 
     public static final String FIND_FINISH_LIST_BY_ID = "FindFinishListById";
+    public static final String FIND_FINISH_BY_START_NUMBER = "FindFinishByStartNumber";
     public static final String GET_MAX_POSITION = "GetMaxPosition";
     public static final String FIND_FINISH_LIST_BY_NAME = "FindFinishListByName";
 

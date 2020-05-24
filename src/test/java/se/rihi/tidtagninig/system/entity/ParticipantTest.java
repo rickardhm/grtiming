@@ -1,4 +1,4 @@
-package se.rihi.tidtagninig.entity;
+package se.rihi.tidtagninig.system.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -35,12 +35,13 @@ public class ParticipantTest implements TestEntityInterface {
     @Test
     public void fieldAnnotations() {
         AssertAnnotations.assertField(Participant.class, "id", Id.class, GeneratedValue.class);
-        AssertAnnotations.assertField(Participant.class, "name", Column.class);
         AssertAnnotations.assertField(Participant.class, "address", OneToOne.class, JoinColumn.class);
+        AssertAnnotations.assertField(Participant.class, "race", ManyToOne.class);
         AssertAnnotations.assertField(Participant.class, "regDate", Column.class);
+        AssertAnnotations.assertField(Participant.class, "name", Column.class);
         AssertAnnotations.assertField(Participant.class, "club", Column.class);
         AssertAnnotations.assertField(Participant.class, "age", Column.class);
-        AssertAnnotations.assertField(Participant.class, "sex", Column.class);
+        AssertAnnotations.assertField(Participant.class, "gender", Column.class);
         AssertAnnotations.assertField(Participant.class, "startNumber", Column.class);
     }
 
@@ -49,10 +50,12 @@ public class ParticipantTest implements TestEntityInterface {
     public void methodAnnotations() {
         AssertAnnotations.assertMethod(Participant.class, "getName");
         AssertAnnotations.assertMethod(Participant.class, "getAddress");
+        AssertAnnotations.assertMethod(Participant.class, "getRace");
         AssertAnnotations.assertMethod(Participant.class, "getRegDate");
+        AssertAnnotations.assertMethod(Participant.class, "getName");
         AssertAnnotations.assertMethod(Participant.class, "getClub");
         AssertAnnotations.assertMethod(Participant.class, "getAge");
-        AssertAnnotations.assertMethod(Participant.class, "getSex");
+        AssertAnnotations.assertMethod(Participant.class, "getGender");
         AssertAnnotations.assertMethod(Participant.class, "getStartNumber");
     }
 

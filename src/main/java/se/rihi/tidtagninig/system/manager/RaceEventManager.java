@@ -1,8 +1,8 @@
-package se.rihi.tidtagninig.manager;
+package se.rihi.tidtagninig.system.manager;
 
-import se.rihi.tidtagninig.entity.Race;
-import se.rihi.tidtagninig.entity.RaceEvent;
-import se.rihi.tidtagninig.manager.interfaces.Manager;
+import se.rihi.tidtagninig.system.entity.Race;
+import se.rihi.tidtagninig.system.entity.RaceEvent;
+import se.rihi.tidtagninig.system.manager.interfaces.Manager;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -13,9 +13,8 @@ public class RaceEventManager extends Manager {
         setup();
     }
 
-    public RaceEvent create(RaceEvent raceEvent) {
+    public void create(RaceEvent raceEvent) {
         session.persist(raceEvent);
-        return raceEvent;
     }
 
     public List<RaceEvent> read() {

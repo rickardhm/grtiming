@@ -1,7 +1,6 @@
-package se.rihi.tidtagninig.entity;
+package se.rihi.tidtagninig.system.entity;
 
 import javax.persistence.*;
-import javax.xml.namespace.QName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;

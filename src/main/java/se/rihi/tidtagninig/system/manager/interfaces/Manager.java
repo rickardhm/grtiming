@@ -1,4 +1,4 @@
-package se.rihi.tidtagninig.manager.interfaces;
+package se.rihi.tidtagninig.system.manager.interfaces;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

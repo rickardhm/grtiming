@@ -1,7 +1,7 @@
-package se.rihi.tidtagninig.manager;
+package se.rihi.tidtagninig.system.manager;
 
-import se.rihi.tidtagninig.entity.Participant;
-import se.rihi.tidtagninig.manager.interfaces.Manager;
+import se.rihi.tidtagninig.system.entity.Participant;
+import se.rihi.tidtagninig.system.manager.interfaces.Manager;
 
 import javax.persistence.Query;
 import java.util.List;
@@ -12,9 +12,8 @@ public class ParticipantManager extends Manager {
         setup();
     }
 
-    public Participant create(Participant participant) {
+    public void create(Participant participant) {
         session.persist(participant);
-        return participant;
     }
 
     public List<Participant> read() {

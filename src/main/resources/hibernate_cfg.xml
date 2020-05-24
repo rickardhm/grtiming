@@ -22,11 +22,11 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Annotated entity classes -->
-        <mapping class="se.rihi.tidtagninig.entity.Participant"/>
-        <mapping class="se.rihi.tidtagninig.entity.Address"/>
-        <mapping class="se.rihi.tidtagninig.entity.Race"/>
-        <mapping class="se.rihi.tidtagninig.entity.RaceEvent"/>
-        <mapping class="se.rihi.tidtagninig.entity.FinishList"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.Participant"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.Address"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.Race"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.RaceEvent"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.FinishList"/>
 
     </session-factory>
 </hibernate-configuration>

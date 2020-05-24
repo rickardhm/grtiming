@@ -1,10 +1,10 @@
-package se.rihi.tidtagninig.manager;
+package se.rihi.tidtagninig.system.manager;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import se.rihi.tidtagninig.entity.FinishList;
-import se.rihi.tidtagninig.entity.Race;
-import se.rihi.tidtagninig.entity.RaceEvent;
+import se.rihi.tidtagninig.system.entity.FinishList;
+import se.rihi.tidtagninig.system.entity.Race;
+import se.rihi.tidtagninig.system.entity.RaceEvent;
 
 import java.util.List;
 import java.util.Random;
@@ -27,7 +27,7 @@ public class RaceEventManagerTest extends TestCase {
     }
 
     public void testFindById() {
-        RaceEvent raceEvent = raceEventManager.findById(RaceEvent.FIND_RACE_EVENT_BY_ID, 314);
+        RaceEvent raceEvent = raceEventManager.findById(RaceEvent.FIND_RACE_EVENT_BY_ID, 7719);
         System.out.println("Tävling: " + raceEvent.getName());
         List<Race> races = raceEvent.getRaceList();
         for (Race race: races) {

@@ -1,4 +1,4 @@
-package se.rihi.tidtagninig.entity;
+package se.rihi.tidtagninig.system.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,6 +33,7 @@ public class FinishListTest implements TestEntityInterface {
     @Test
     public void fieldAnnotations() {
         AssertAnnotations.assertField(FinishList.class, "id", Id.class, GeneratedValue.class);
+        AssertAnnotations.assertField(FinishList.class, "race", ManyToOne.class);
         AssertAnnotations.assertField(FinishList.class, "finishTime", Column.class);
         AssertAnnotations.assertField(FinishList.class, "nr", Column.class);
         AssertAnnotations.assertField(FinishList.class, "position", Column.class);
@@ -42,6 +43,7 @@ public class FinishListTest implements TestEntityInterface {
     @Test
     public void methodAnnotations() {
         AssertAnnotations.assertMethod(FinishList.class, "getId");
+        AssertAnnotations.assertMethod(FinishList.class, "getRace");
         AssertAnnotations.assertMethod(FinishList.class, "getFinishTime");
         AssertAnnotations.assertMethod(FinishList.class, "getNr");
         AssertAnnotations.assertMethod(FinishList.class, "getPosition");

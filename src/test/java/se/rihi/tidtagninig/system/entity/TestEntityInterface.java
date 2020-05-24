@@ -1,4 +1,4 @@
-package se.rihi.tidtagninig.entity;
+package se.rihi.tidtagninig.system.entity;
 
 import org.junit.Test;
 
