@@ -29,7 +29,7 @@ public class RaceEvent implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToMany(mappedBy = "raceEvent",  cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Race> raceList = new ArrayList<>();
     @Column(name = "name")
     private String name;
@@ -56,12 +56,12 @@ public class RaceEvent implements Serializable {
 
     public void addRace(Race race) {
         raceList.add(race);
-        race.setRaceEvent(this);
+        //race.setRaceEvent(this);
     }
 
     public void removeRace(Race race) {
         raceList.remove(race);
-        race.setRaceEvent(null);
+        //race.setRaceEvent(null);
     }
 
     public void setRaceList(List<Race> raceList) {

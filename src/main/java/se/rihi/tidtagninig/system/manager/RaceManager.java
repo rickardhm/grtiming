@@ -21,9 +21,9 @@ public class RaceManager extends Manager {
         return (List<Race>) q.getResultList();
     }
 
-    public Race findById(int raceId) {
-        Query q = session.createNamedQuery(Race.FIND_RACE_BY_ID);
-        q.setParameter("id", raceId);
+    public Race findById(String namedQuery, int searchTerm) {
+        Query q = session.createNamedQuery(namedQuery);
+        q.setParameter("id", searchTerm);
         return (Race) q.getSingleResult();
     }
 
@@ -41,6 +41,7 @@ public class RaceManager extends Manager {
 
     public void update(Race race) {
         session.update(race);
+        getTransaction().commit();
     }
 
     public void delete(Race race) {

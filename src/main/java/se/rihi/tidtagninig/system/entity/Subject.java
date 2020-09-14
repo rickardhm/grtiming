@@ -5,27 +5,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 @NamedQueries({
-        @NamedQuery(name = "FindParticipantById", query = "from Participant where id = :id"),
-        @NamedQuery(name = "MaxStartNumber", query = "select MAX(startNumber) from Participant where race_id = :raceId"),
-        @NamedQuery(name = "FindParticipantByName", query = "from Participant where lower(name) like :name")
+        @NamedQuery(name = "FindSubjectById", query = "from Subject where id = :id"),
+        @NamedQuery(name = "FindSubjectByName", query = "from Subject where lower(name) like :name")
 })
 
-
 @Entity
-@Table(name = "participant")
-public class Participant implements Serializable, Comparable<Participant> {
+@Table(name = "subject")
+public class Subject implements Serializable, Comparable<Subject> {
 
-    public static final String FIND_USER_BY_ID = "FindParticipantById";
-    public static final String FIND_MAX_START_NUMBER = "MaxStartNumber";
-    public static final String FIND_USER_BY_NAME = "FindParticipantByName";
+    public static final String FIND_SUBJECT_BY_ID = "FindSubjectById";
+    public static final String FIND_SUBJECT_BY_NAME = "FindSubjectByName";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    private Race race;*/
     @Column(name = "regDate")
     private Date regDate;
     @Column(name = "name")
@@ -38,8 +34,6 @@ public class Participant implements Serializable, Comparable<Participant> {
     private String gender;
     @Column(name = "start_number")
     private int startNumber;
-
-    public Participant() {}
 
     public int getId() {
         return id;
@@ -56,18 +50,6 @@ public class Participant implements Serializable, Comparable<Participant> {
     public void setAddress(Address address) {
         this.address = address;
     }
-
-    public void addAddress(Address address) {
-        this.address = address;
-    }
-
-    /*public Race getRace() {
-        return race;
-    }
-
-    public void setRace(Race race) {
-        this.race = race;
-    }*/
 
     public Date getRegDate() {
         return regDate;
@@ -120,16 +102,14 @@ public class Participant implements Serializable, Comparable<Participant> {
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append(this.startNumber);
         buffer.append(";");
         buffer.append(this.name);
-        buffer.append(";");
-        buffer.append(this.club);
         return buffer.toString();
     }
 
     @Override
-    public int compareTo(Participant o) {
-        return getRegDate().compareTo(o.getRegDate());
+    public int compareTo(Subject o) {
+        return 0;
     }
+
 }

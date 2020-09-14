@@ -33,7 +33,6 @@ public class Commons {
             nr = (int) o + 1;
         }
         finish.setPosition(nr);
-        finish.setRace(race);
         finish.setFinishTime(new Date());
         listManager.updateFinish(finish);
         listManager.getTransaction().commit();

@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS participant;
 DROP TABLE IF EXISTS  race;
 DROP TABLE IF EXISTS race_event;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS post_comment;
 
 CREATE TABLE participant
 (
@@ -29,4 +31,14 @@ CREATE TABLE race_event
  fee varchar (100),
  date date,
  event_location varchar (100)
+);
+CREATE  TABLE post
+(
+ id serial PRIMARY KEY ,
+ title varchar (100)
+);
+CREATE table post_comment
+(
+  id serial primary key,
+  review varchar (100)
 );

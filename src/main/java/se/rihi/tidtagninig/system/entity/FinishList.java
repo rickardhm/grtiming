@@ -7,7 +7,7 @@ import java.util.Date;
 @NamedQueries({
         @NamedQuery(name = "FindFinishListById", query = "from FinishList where id = :id"),
         @NamedQuery(name = "FindFinishByStartNumber", query = "from FinishList where nr = :nr"),
-        @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList where race_id = :raceId"),
+        @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList"),
         @NamedQuery(name = "FindFinishListByName", query = "from FinishList where lower(name) like :name")
 })
 
@@ -23,14 +23,20 @@ public class FinishList implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Race race;
     @Column(name = "finishTime")
     private Date finishTime;
+    @Column(name = "finishString")
+    private String finishString;
     @Column(name = "nr")
     private int nr;
     @Column(name = "position")
     private int position;
+
+    public FinishList() {}
+
+    public FinishList(Date finishTime) {
+        this.finishTime = finishTime;
+    }
 
     public int getId() {
         return id;
@@ -40,20 +46,20 @@ public class FinishList implements Serializable {
         this.id = id;
     }
 
-    public Race getRace() {
-        return race;
-    }
-
-    public void setRace(Race race) {
-        this.race = race;
-    }
-
     public Date getFinishTime() {
         return finishTime;
     }
 
     public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
+    }
+
+    public String getFinishString() {
+        return finishString;
+    }
+
+    public void setFinishString(String finishString) {
+        this.finishString = finishString;
     }
 
     public int getNr() {

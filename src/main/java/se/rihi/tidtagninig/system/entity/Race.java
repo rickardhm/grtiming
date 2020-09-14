@@ -8,7 +8,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "FindRaceById", query = "from Race where id = :id"),
-        @NamedQuery(name = "FinMaxStartNumber", query = "select MAX(startNumber) from Participant where race.id = :raceId"),
+        //@NamedQuery(name = "FinMaxStartNumber", query = "select MAX(startNumber) from Participant where race.id = :raceId"),
         @NamedQuery(name = "FindRaceByName", query = "from Race where lower(name) like :name")
 })
 
@@ -23,11 +23,9 @@ public class Race implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToMany(mappedBy = "race", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participant> participants = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.LAZY)
-    private RaceEvent raceEvent;
-    @OneToMany(mappedBy = "race",  cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FinishList> finishList = new ArrayList<>();
     @Column(name = "name")
     private String name;
@@ -35,6 +33,8 @@ public class Race implements Serializable {
     private String description;
     @Column(name = "raceDate")
     private Date raceDate;
+    @Column(name = "startTime")
+    private Date startTime;
     @Column(name = "fee")
     private String fee;
     @Column(name = "distance")
@@ -58,20 +58,12 @@ public class Race implements Serializable {
 
     public void addParticipant(Participant participant) {
         participants.add(participant);
-        participant.setRace(this);
+        //participant.setRace(this);
     }
 
     public void removeParticipant(Participant participant) {
         participants.remove(participant);
-        participant.setRace(null);
-    }
-
-    public RaceEvent getRaceEvent() {
-        return raceEvent;
-    }
-
-    public void setRaceEvent(RaceEvent raceEvent) {
-        this.raceEvent = raceEvent;
+        //participant.setRace(null);
     }
 
     public List<FinishList> getFinishList() {
@@ -108,6 +100,14 @@ public class Race implements Serializable {
 
     public void setRaceDate(Date raceDate) {
         this.raceDate = raceDate;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
     public String getFee() {

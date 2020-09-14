@@ -17,8 +17,6 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToOne(mappedBy = "address")
-    private Participant participant;
     @Column(name = "email")
     private String email;
     @Column(name = "phone")
@@ -32,13 +30,13 @@ public class Address {
         this.id = id;
     }
 
-    public Participant getParticipant() {
+    /*public Participant getParticipant() {
         return participant;
     }
 
     public void setParticipant(Participant participant) {
         this.participant = participant;
-    }
+    }*/
 
     public String getEmail() {
         return email;
@@ -54,5 +52,10 @@ public class Address {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + getId() + ", email: " + getEmail() + " phone: " + getPhone();
     }
 }

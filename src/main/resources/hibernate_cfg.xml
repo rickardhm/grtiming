@@ -23,10 +23,13 @@
 
         <!-- Annotated entity classes -->
         <mapping class="se.rihi.tidtagninig.system.entity.Participant"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.Subject"/>
         <mapping class="se.rihi.tidtagninig.system.entity.Address"/>
         <mapping class="se.rihi.tidtagninig.system.entity.Race"/>
         <mapping class="se.rihi.tidtagninig.system.entity.RaceEvent"/>
         <mapping class="se.rihi.tidtagninig.system.entity.FinishList"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.Post"/>
+        <mapping class="se.rihi.tidtagninig.system.entity.PostComment"/>
 
     </session-factory>
 </hibernate-configuration>
