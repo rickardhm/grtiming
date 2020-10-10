@@ -4,15 +4,11 @@ import se.rihi.tidtagninig.system.entity.*;
 import se.rihi.tidtagninig.system.manager.ParticipantManager;
 import se.rihi.tidtagninig.system.manager.PostManager;
 import se.rihi.tidtagninig.system.manager.RaceEventManager;
-import se.rihi.tidtagninig.system.manager.SubjectManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Maker {
@@ -129,30 +125,26 @@ public class Maker {
         pm.exit(false);
     }
 
-    public void makeSubject() {
-        SubjectManager manager = new SubjectManager();
-        Subject subject = new Subject();
-        subject.setName(maketName());
-        subject.setAge(52);
-        subject.setAddress(makeAdress(subject.getName()));
-        subject.setClub(makeClub());
-        subject.setRegDate(new Date());
-        subject.setStartNumber(0);
-        manager.create(subject);
-        manager.exit(false);
-    }
-
     public void makePost() {
-        PostManager postManager = new PostManager();
         Post post = new Post();
         post.setTitle("First post");
-        PostComment comment1 = new PostComment();
-        comment1.setReview("First comment");
-        PostComment comment2 = new PostComment();
-        comment2.setReview("Second comment");
-        post.addComment(comment2);
+
+        post.addComment(new PostComment("My first review"));
+        post.addComment(new PostComment("My second review"));
+        post.addComment(new PostComment("My third review"));
+
+        PostManager postManager = new PostManager();
         postManager.create(post);
-        postManager.exit(false);
     }
 
+    public void readPost() {
+        PostManager postManager = new PostManager();
+        List<Post> list = postManager.read();
+        for (Post post: list) {
+            System.out.println("Title: " + post.getTitle());
+            for (PostComment comment: post.getComments()) {
+                System.out.println("Comment: " + comment.getReview());
+            }
+        }
+    }
 }

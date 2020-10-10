@@ -33,27 +33,44 @@ public class FinishListManager extends Manager {
         return finishList;
     }
 
+    /**
+     * Return the maximun position from the finishList
+     * @param raceId
+     * @return
+     */
     public Object getMaxPosition(int raceId) {
         Query query = session.createNamedQuery(FinishList.GET_MAX_POSITION);
-        query.setParameter("raceId", raceId);
+        query.setParameter("race_id", raceId);
         Object pos = query.getSingleResult();
         return pos;
     }
 
     /**
-     * Will add finish time and position to this finishList
+     * Update the finishList
      * @param finish the finishList to update
      */
     public void updateFinish(FinishList finish) {
         session.persist(finish);
+        getTransaction().commit();
     }
 
+    /**
+     * Adds a finish to the finishlist with the finish time set
+     * @param raceId The id witch this finish time should be register
+     */
     public void registerFinish(int raceId) {
         Commons commons = new Commons();
+        int pos = 0;
         RaceManager raceManager = new RaceManager();
+        FinishListManager finishListManager = new FinishListManager();
         Race race = raceManager.findById(Race.FIND_RACE_BY_ID, raceId);
         FinishList finishList = new FinishList(new Date());
+        Object fl = finishListManager.getMaxPosition(raceId);
+        if (null != fl) {
+            pos = (int) fl;
+        }
         finishList.setFinishString(commons.displayFinishTime(race.getStartTime(), finishList.getFinishTime()));
+        finishList.setPosition(++pos);
         race.addFinish(finishList);
         raceManager.update(race);
     }

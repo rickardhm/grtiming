@@ -1,13 +1,15 @@
 package se.rihi.tidtagninig.system.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Entity
-@Table(name = "post_comment")
+@Entity(name = "PostComment")
 public class PostComment {
+
+    public PostComment() {}
+    public PostComment(String review) {
+        this.review = review;
+    }
+
     @Id
     @GeneratedValue
     private Long id;
@@ -30,7 +32,9 @@ public class PostComment {
     }
 
     @Override
-    public String toString() {
-        return getReview();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PostComment )) return false;
+        return id != null && id.equals(((PostComment) o).getId());
     }
 }

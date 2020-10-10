@@ -31,4 +31,5 @@ public class RaceController {
         FinishListManager manager = new FinishListManager();
         manager.registerFinish(id);
     }
+
 }

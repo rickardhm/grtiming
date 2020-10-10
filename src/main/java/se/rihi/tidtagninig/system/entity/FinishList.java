@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @NamedQueries({
         @NamedQuery(name = "FindFinishListById", query = "from FinishList where id = :id"),
         @NamedQuery(name = "FindFinishByStartNumber", query = "from FinishList where nr = :nr"),
-        @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList"),
+        @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList where race_id = :race_id"),
         @NamedQuery(name = "FindFinishListByName", query = "from FinishList where lower(name) like :name")
 })
 
@@ -31,6 +32,8 @@ public class FinishList implements Serializable {
     private int nr;
     @Column(name = "position")
     private int position;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Race race;
 
     public FinishList() {}
 

@@ -23,7 +23,6 @@
 
         <!-- Annotated entity classes -->
         <mapping class="se.rihi.tidtagninig.system.entity.Participant"/>
-        <mapping class="se.rihi.tidtagninig.system.entity.Subject"/>
         <mapping class="se.rihi.tidtagninig.system.entity.Address"/>
         <mapping class="se.rihi.tidtagninig.system.entity.Race"/>
         <mapping class="se.rihi.tidtagninig.system.entity.RaceEvent"/>

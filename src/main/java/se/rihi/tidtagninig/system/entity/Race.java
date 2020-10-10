@@ -24,8 +24,10 @@ public class Race implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "race_id")
     private List<Participant> participants = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "race_id")
     private List<FinishList> finishList = new ArrayList<>();
     @Column(name = "name")
     private String name;

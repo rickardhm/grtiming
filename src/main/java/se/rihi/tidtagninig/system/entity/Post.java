@@ -1,32 +1,31 @@
 package se.rihi.tidtagninig.system.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "FindPostById", query = "from Post where id = :id")
-})
+@Entity(name = "Post")
+public class Post {
 
-@Entity
-@Table(name = "post")
-public class Post implements Serializable, Comparable<Post> {
-
-    public static final String FIND_POST_BY_ID = "FindPostById";
+    public Post() {}
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue
+    private Long id;
     private String title;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JoinColumn(name = "post_id")
     private List<PostComment> comments = new ArrayList<>();
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,16 +46,13 @@ public class Post implements Serializable, Comparable<Post> {
     }
 
     public void addComment(PostComment comment) {
-        this.comments.add(comment);
+        comments.add(comment);
+        //comment.setPost(this);
     }
 
-    @Override
-    public String toString() {
-        return this.getTitle() + " " + this.getComments().toString();
+    public void removeComment(PostComment comment) {
+        comments.remove(comment);
+        //comment.setPost(null);
     }
 
-    @Override
-    public int compareTo(Post post) {
-        return 0;
-    }
 }

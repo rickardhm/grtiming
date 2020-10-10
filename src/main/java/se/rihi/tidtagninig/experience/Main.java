@@ -1,22 +1,11 @@
 package se.rihi.tidtagninig.experience;
 
-import org.postgresql.shaded.com.ongres.scram.common.exception.ScramServerErrorException;
 import se.rihi.tidtagninig.process.util.Commons;
-import se.rihi.tidtagninig.system.entity.Subject;
 import se.rihi.tidtagninig.system.entity.*;
 import se.rihi.tidtagninig.system.manager.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
 
@@ -32,6 +21,7 @@ public class Main {
         displayTime();
         //maker.makeSubject();
         //maker.makePost();
+        //maker.readPost();
         //System.out.println(main.getMax(300));
         /*int eventId = maker.makeRaeEvent();
         System.out.println(eventId);*/
@@ -132,17 +122,6 @@ public class Main {
             System.out.println(" ");
         }
 
-    }
-
-    private void displayPost(int postId) {
-        PostManager postManager = new PostManager();
-        List<Post> posts = postManager.read();
-        for (Post p: posts) {
-            System.out.println(p.getTitle());
-            for (PostComment comment: p.getComments()) {
-                System.out.println(comment.getReview());
-            }
-        }
     }
 
     private void displayRace(int receId) {
