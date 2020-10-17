@@ -33,7 +33,6 @@ public class AddressTest implements TestEntityInterface {
     @Test
     public void fieldAnnotations() {
         AssertAnnotations.assertField(Address.class, "id", Id.class, GeneratedValue.class);
-        AssertAnnotations.assertField(Address.class, "participant", OneToOne.class);
         AssertAnnotations.assertField(Address.class, "email", Column.class);
         AssertAnnotations.assertField(Address.class, "phone", Column.class);
     }
@@ -42,7 +41,6 @@ public class AddressTest implements TestEntityInterface {
     @Test
     public void methodAnnotations() {
         AssertAnnotations.assertMethod(Address.class, "getId");
-        AssertAnnotations.assertMethod(Address.class, "getParticipant");
         AssertAnnotations.assertMethod(Address.class, "getEmail");
         AssertAnnotations.assertMethod(Address.class, "getPhone");
     }

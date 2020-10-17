@@ -1,7 +1,6 @@
 package se.rihi.tidtagninig.system.manager;
 
 import junit.framework.TestCase;
-import org.junit.Test;
 import se.rihi.tidtagninig.system.entity.Participant;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class ParticipantManagerTest extends TestCase {
     }
 
     public void testFindById() {
-        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 7748);
+        Participant p = manager.findById(Participant.FIND_USER_BY_ID, 8086);
         System.out.println("p " + p.getName() + " " + p.getClub() + " " + p.getAddress().getEmail());
     }
 

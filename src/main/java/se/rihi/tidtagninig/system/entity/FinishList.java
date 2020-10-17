@@ -32,8 +32,6 @@ public class FinishList implements Serializable {
     private int nr;
     @Column(name = "position")
     private int position;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Race race;
 
     public FinishList() {}
 

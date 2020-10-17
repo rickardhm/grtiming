@@ -24,8 +24,6 @@ public class Participant implements Serializable, Comparable<Participant> {
     private int id;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
-    /*@ManyToOne(fetch = FetchType.LAZY)
-    private Race race;*/
     @Column(name = "regDate")
     private Date regDate;
     @Column(name = "name")

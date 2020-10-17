@@ -30,14 +30,6 @@ public class Address {
         this.id = id;
     }
 
-    /*public Participant getParticipant() {
-        return participant;
-    }
-
-    public void setParticipant(Participant participant) {
-        this.participant = participant;
-    }*/
-
     public String getEmail() {
         return email;
     }
