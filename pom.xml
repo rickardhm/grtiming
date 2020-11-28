@@ -3,12 +3,12 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.rihi</groupId>
-	<artifactId>tidtagninig</artifactId>
+	<artifactId>tidtagning</artifactId>
 	<version>1.0</version>
 
-
 	<properties>
-		<java.version>1.9</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<parent>
@@ -26,10 +26,6 @@
 					<source>11</source>
 					<target>11</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>

@@ -8,7 +8,7 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "FindRaceEventById", query = "from RaceEvent where id = :id"),
-        @NamedQuery(name = "FindRaceByRaceEventId", query = "from Race where id =:race_event_id"),
+        @NamedQuery(name = "FindRaceByRaceId", query = "from Race where id =:race_id"),
         @NamedQuery(name = "FindRaceEventByName", query = "from RaceEvent where lower(name) like :name")
 })
 
@@ -23,7 +23,7 @@ import java.util.List;
 public class RaceEvent implements Serializable {
 
     public static final String FIND_RACE_EVENT_BY_ID = "FindRaceEventById";
-    public static final String FIND_RACE_BY_RACE_EVENT_ID = "FindRaceByRaceEventId";
+    public static final String FIND_RACE_BY_RACE_ID = "FindRaceByRaceId";
     public static final String FIND_RACE_EVENT_BY_NAME = "FindRaceEventByName";
 
     @Id

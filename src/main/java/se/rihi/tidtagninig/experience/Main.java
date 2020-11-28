@@ -134,7 +134,7 @@ public class Main {
             for (Participant participant: list) {
                 System.out.print(" ");
                 System.out.print("Nr: " + participant.getStartNumber() + " name: " + participant.getName()  + " age: " + participant.getAge());
-                List<FinishList> finish = finishLists.stream().filter(p -> p.getNr() == participant.getStartNumber()).collect(Collectors.toList());
+                List<FinishList> finish = finishLists.stream().filter(p -> p.getStartNumber() == participant.getStartNumber()).collect(Collectors.toList());
                 if (finish.size() > 0) {
                     Date start = race.getRaceDate();
                     Date fin = finish.get(0).getFinishTime();

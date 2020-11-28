@@ -1,7 +1,6 @@
 package se.rihi.tidtagninig.system.manager;
 
 import junit.framework.TestCase;
-import org.junit.Test;
 import se.rihi.tidtagninig.system.entity.Race;
 
 import java.util.List;

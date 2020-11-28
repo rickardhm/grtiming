@@ -23,7 +23,7 @@ public class Race implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.MERGE, orphanRemoval = true)
     @JoinColumn(name = "race_id")
     private List<Participant> participants = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

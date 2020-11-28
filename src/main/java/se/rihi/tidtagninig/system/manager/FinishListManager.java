@@ -27,9 +27,24 @@ public class FinishListManager extends Manager {
     }
 
     public FinishList findById(String namerQuery, int searchTerm) {
-        Query query = session.createNamedQuery(FinishList.FIND_FINISH_LIST_BY_ID);
+        Query query = session.createNamedQuery(namerQuery);
         query.setParameter("id", searchTerm);
         FinishList finishList = (FinishList) query.getSingleResult();
+        return finishList;
+    }
+
+    public FinishList findByPossition(String namerQuery, int race_id, int position) {
+        Query query = session.createNamedQuery(namerQuery);
+        query.setParameter("race_id", race_id);
+        query.setParameter("position", position);
+        FinishList finishList = (FinishList) query.getSingleResult();
+        return finishList;
+    }
+
+    public List<FinishList> findByRaceId(String namerQuery, int searchTerm) {
+        Query query = session.createNamedQuery(namerQuery);
+        query.setParameter("race_id", searchTerm);
+        List<FinishList> finishList = (List<FinishList>) query.getResultList();
         return finishList;
     }
 
@@ -57,8 +72,9 @@ public class FinishListManager extends Manager {
     /**
      * Adds a finish to the finishlist with the finish time set
      * @param raceId The id witch this finish time should be register
+     * @return
      */
-    public void registerFinish(int raceId) {
+    public FinishList registerFinish(int raceId) {
         Commons commons = new Commons();
         int pos = 0;
         RaceManager raceManager = new RaceManager();
@@ -73,6 +89,7 @@ public class FinishListManager extends Manager {
         finishList.setPosition(++pos);
         race.addFinish(finishList);
         raceManager.update(race);
+        return finishList;
     }
 
     public void startRace(int raceId) {

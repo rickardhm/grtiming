@@ -7,7 +7,9 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "FindFinishListById", query = "from FinishList where id = :id"),
-        @NamedQuery(name = "FindFinishByStartNumber", query = "from FinishList where nr = :nr"),
+        @NamedQuery(name = "FindFinishListByPosition", query = "from FinishList where race_id = :race_id and position = :position"),
+        @NamedQuery(name = "FindFinishListByRaceId", query = "from FinishList where race_id = :race_id order by position"),
+        @NamedQuery(name = "FindFinishByStartNumber", query = "from FinishList where start_number = :start_number"),
         @NamedQuery(name = "GetMaxPosition", query = "select MAX(position) from FinishList where race_id = :race_id"),
         @NamedQuery(name = "FindFinishListByName", query = "from FinishList where lower(name) like :name")
 })
@@ -17,6 +19,8 @@ import java.util.Date;
 public class FinishList implements Serializable {
 
     public static final String FIND_FINISH_LIST_BY_ID = "FindFinishListById";
+    public static final String FIND_FINISH_LIST_BY_POSITION = "FindFinishListByPosition";
+    public static final String FIND_FINISH_LIST_BY_RACE_ID = "FindFinishListByRaceId";
     public static final String FIND_FINISH_BY_START_NUMBER = "FindFinishByStartNumber";
     public static final String GET_MAX_POSITION = "GetMaxPosition";
     public static final String FIND_FINISH_LIST_BY_NAME = "FindFinishListByName";
@@ -28,8 +32,8 @@ public class FinishList implements Serializable {
     private Date finishTime;
     @Column(name = "finishString")
     private String finishString;
-    @Column(name = "nr")
-    private int nr;
+    @Column(name = "start_number")
+    private int startNumber;
     @Column(name = "position")
     private int position;
 
@@ -63,12 +67,12 @@ public class FinishList implements Serializable {
         this.finishString = finishString;
     }
 
-    public int getNr() {
-        return nr;
+    public int getStartNumber() {
+        return startNumber;
     }
 
-    public void setNr(int nr) {
-        this.nr = nr;
+    public void setStartNumber(int startNumber) {
+        this.startNumber = startNumber;
     }
 
     public int getPosition() {
@@ -78,4 +82,5 @@ public class FinishList implements Serializable {
     public void setPosition(int position) {
         this.position = position;
     }
+
 }

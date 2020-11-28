@@ -34,7 +34,7 @@ public class FinishListTest implements TestEntityInterface {
     public void fieldAnnotations() {
         AssertAnnotations.assertField(FinishList.class, "id", Id.class, GeneratedValue.class);
         AssertAnnotations.assertField(FinishList.class, "finishTime", Column.class);
-        AssertAnnotations.assertField(FinishList.class, "nr", Column.class);
+        AssertAnnotations.assertField(FinishList.class, "startNumber", Column.class);
         AssertAnnotations.assertField(FinishList.class, "position", Column.class);
         AssertAnnotations.assertField(FinishList.class, "finishString", Column.class);
     }
@@ -44,7 +44,7 @@ public class FinishListTest implements TestEntityInterface {
     public void methodAnnotations() {
         AssertAnnotations.assertMethod(FinishList.class, "getId");
         AssertAnnotations.assertMethod(FinishList.class, "getFinishTime");
-        AssertAnnotations.assertMethod(FinishList.class, "getNr");
+        AssertAnnotations.assertMethod(FinishList.class, "getStartNumber");
         AssertAnnotations.assertMethod(FinishList.class, "getPosition");
     }
 }
