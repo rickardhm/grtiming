@@ -1,9 +1,6 @@
 package se.rihi.tidtagninig.system.manager;
 
 import junit.framework.TestCase;
-import se.rihi.tidtagninig.system.entity.Race;
-
-import java.util.List;
 
 public class RaceManagerTest extends TestCase {
 
@@ -14,12 +11,11 @@ public class RaceManagerTest extends TestCase {
         raceManager = new RaceManager();
     }
 
+    public void testManager() {
+        assertNotNull(raceManager);
+    }
+
     public void testRead() {
-        List<Race> list = raceManager.read();
-        for (Race race: list) {
-            System.out.println("-> " + race.getName());
-        }
-        assertTrue(list.size() > 0);
     }
 
     public void testFindById() {

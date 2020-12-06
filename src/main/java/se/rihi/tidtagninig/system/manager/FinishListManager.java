@@ -1,8 +1,8 @@
 package se.rihi.tidtagninig.system.manager;
 
 import se.rihi.tidtagninig.process.util.Commons;
-import se.rihi.tidtagninig.system.entity.Race;
 import se.rihi.tidtagninig.system.entity.FinishList;
+import se.rihi.tidtagninig.system.entity.Race;
 import se.rihi.tidtagninig.system.manager.interfaces.Manager;
 
 import javax.persistence.Query;
@@ -63,10 +63,18 @@ public class FinishListManager extends Manager {
     /**
      * Update the finishList
      * @param finish the finishList to update
+     * @return
      */
-    public void updateFinish(FinishList finish) {
-        session.persist(finish);
-        getTransaction().commit();
+    public boolean updateFinish(FinishList finish) {
+        boolean returnValue = false;
+        try {
+            session.persist(finish);
+            getTransaction().commit();
+            returnValue = true;
+        } catch (Exception e) {
+            returnValue = false;
+        }
+        return returnValue;
     }
 
     /**

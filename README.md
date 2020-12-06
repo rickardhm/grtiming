@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-A preconfigured DB, connection configuration is done in application_cfg.xml 
+A preconfigured DB, connection configuration is done in hibernate_cfg.xml 
 
 What things you need to install the software and how to install them
 
@@ -17,6 +17,9 @@ Give examples
 ```
 
 ### Installing
+
+1. clone this repository
+1. compile - mvn clean install (To rum without test: mvn clean install -DskipTests)
 
 A step by step series of examples that tell you how to get a development env running
 
@@ -36,7 +39,6 @@ End with an example of getting some data out of the system or using it for a lit
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
 mvn test
 
 ### Break down into end to end tests
