@@ -30,7 +30,11 @@ java -jar target/grtiming-1.1-jar-with-dependencies.jar
 
 ### Run the application
 
-mvn spring-boot:run
+To start swing GUI:
+  run Main method in se.rich.grtiming.experience.GrTimingForm
+
+To start Vaadin application:
+  mvn spring-boot:run
 
 http://localhost:8080
 
