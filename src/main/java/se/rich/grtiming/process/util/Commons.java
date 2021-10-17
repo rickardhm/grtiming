@@ -10,6 +10,7 @@ import se.rich.grtiming.system.manager.RaceManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -51,8 +52,10 @@ public class Commons {
      */
     public String displayFinishTime(Date start, Date finish) {
         Map<String, Long> hej = calculateTime(start, finish);
+        DecimalFormat format = new DecimalFormat("0.00");
         String result = String.format("%s hours %s minutes %s,%s seconds",
-                hej.get("hours"), hej.get("minutes"), hej.get("seconds"), hej.get("milliSeconds"));
+                hej.get("hours"), hej.get("minutes"), hej.get("seconds"), (hej.get("milliSeconds")));
+        Long ms = hej.get("milliSeconds");
         return result;
     }
 

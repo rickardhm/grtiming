@@ -28,7 +28,7 @@ public class FinishListManager extends Manager {
 
     public FinishList findById(String namerQuery, int searchTerm) {
         Query query = session.createNamedQuery(namerQuery);
-        query.setParameter("id", searchTerm);
+        query.setParameter("race_id", searchTerm);
         FinishList finishList = (FinishList) query.getSingleResult();
         return finishList;
     }

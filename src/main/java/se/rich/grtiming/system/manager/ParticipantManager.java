@@ -29,6 +29,13 @@ public class ParticipantManager extends Manager {
         return p;
     }
 
+    public List<Participant> findByRaceId(int raceId) {
+        Query q = session.createNamedQuery(Participant.FIND_USER_BY_RACE_ID);
+        q.setParameter("race_id", raceId);
+        List<Participant> list = q.getResultList();
+        return list;
+    }
+
     public Participant findByStartNumber(int raceId, int startNumber) {
         Query q = session.createNamedQuery(Participant.FIND_USER_BY_START_NUMBER);
         q.setParameter("race_id", raceId);

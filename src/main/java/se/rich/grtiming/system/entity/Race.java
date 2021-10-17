@@ -42,6 +42,8 @@ public class Race implements Serializable {
     private String fee;
     @Column(name = "distance")
     private String distance;
+    @Column(name = "race_event_id")
+    private int race_event_id;
 
     public int getId() {
         return id;

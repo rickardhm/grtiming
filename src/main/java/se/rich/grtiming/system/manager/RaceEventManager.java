@@ -41,9 +41,10 @@ public class RaceEventManager extends Manager {
         return list;
     }
 
-    public void update(RaceEvent raceEvent) {
+    public int update(RaceEvent raceEvent) {
         session.update(raceEvent);
         getTransaction().commit();
+        return raceEvent.getId();
     }
 
     public void delete(RaceEvent raceEvent) {

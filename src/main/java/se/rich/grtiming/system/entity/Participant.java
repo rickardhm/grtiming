@@ -6,6 +6,7 @@ import java.util.Date;
 
 @NamedQueries({
         @NamedQuery(name = "FindParticipantById", query = "from Participant where id = :id"),
+        @NamedQuery(name = "FindParticipantByRaceId", query = "from Participant where race_id = :race_id"),
         @NamedQuery(name = "FindParticipantByStartNumber", query = "from Participant where race_id = :race_id and start_number = :start_number"),
         @NamedQuery(name = "MaxStartNumber", query = "select MAX(startNumber) from Participant where race_id = :raceId"),
         @NamedQuery(name = "FindParticipantByName", query = "from Participant where lower(name) like :name")
@@ -17,6 +18,7 @@ import java.util.Date;
 public class Participant implements Serializable, Comparable<Participant> {
 
     public static final String FIND_USER_BY_ID = "FindParticipantById";
+    public static final String FIND_USER_BY_RACE_ID = "FindParticipantByRaceId";
     public static final String FIND_USER_BY_START_NUMBER = "FindParticipantByStartNumber";
     public static final String FIND_MAX_START_NUMBER = "MaxStartNumber";
     public static final String FIND_USER_BY_NAME = "FindParticipantByName";

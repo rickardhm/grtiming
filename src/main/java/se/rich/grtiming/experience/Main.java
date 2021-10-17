@@ -11,20 +11,69 @@ import se.rich.grtiming.system.manager.RaceEventManager;
 import se.rich.grtiming.system.manager.RaceManager;
 import se.rich.grtiming.system.manager.FinishListManager;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class Main {
+public class Main implements ActionListener {
 
     final static Logger logger = Logger.getLogger(Main.class);
     private static Commons commons = new Commons();
     private Maker maker = new Maker();
+    int counter = 0;
+    JLabel label;
+    JTextArea textArea;
+
+    public Main() {
+        JFrame frame = new JFrame();
+        frame.setSize(500,500);
+        JPanel panel = new JPanel();
+
+        JButton button = new JButton("Click me");
+        button.addActionListener(this);
+        label = new JLabel("Number of clicks: 0");
+        textArea = new JTextArea();
+        textArea.setSize(400,400);
+
+        JScrollPane scrollH = new JScrollPane (textArea);
+
+        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+        panel.setLayout(new GridLayout(0, 1));
+        panel.add(button);
+        panel.add(label);
+        panel.add(scrollH);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Hello");
+        frame.pack();
+        frame.setVisible(true);
+    }
 
     public static void main(String[] args) {
         Main main = new Main();
-        int id = main.functionTest();
-        main.tearDown(id);
+        //main.testCreateRace(16637);
+        //int id = main.functionTest();
+        //int id = 16977;
+        //main.tearDown(id);
         //main.findSomething();
+    }
+
+    private void testCreateRace(int race_event_id) {
+        RaceEventManager eventManager = new RaceEventManager();
+        RaceEvent raceEvent = eventManager.findById(RaceEvent.FIND_RACE_EVENT_BY_ID, race_event_id);
+        if (null != raceEvent) {
+            Race race = new Race();
+            race.setName("Empty");
+            raceEvent.addRace(race);
+            eventManager.update(raceEvent);
+        } else {
+            logger.warn("race event with id: " + race_event_id + " not found");
+        }
     }
 
     /**
@@ -196,4 +245,20 @@ public class Main {
         }
     }
 
+    @Override
+    public void actionPerformed(ActionEvent actionEvent) {
+        counter++;
+        label.setText("Number of clicks: " + counter);
+        if (counter > 1) {
+            readParticipants();
+        }
+    }
+
+    private void readParticipants() {
+        ParticipantManager manager = new ParticipantManager();
+        List<Participant> list = manager.read();
+        for (Participant participant: list) {
+            textArea.append(participant.getName() + "\n");
+        }
+    }
 }

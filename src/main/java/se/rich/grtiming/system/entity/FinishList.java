@@ -36,6 +36,8 @@ public class FinishList implements Serializable {
     private int startNumber;
     @Column(name = "position")
     private int position;
+    @Column(name = "race_id")
+    private int race_id;
 
     public FinishList() {}
 
