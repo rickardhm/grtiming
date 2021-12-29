@@ -1,6 +1,7 @@
 package se.rich.grtiming.experience;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.rich.grtiming.system.entity.*;
 import se.rich.grtiming.system.manager.ParticipantManager;
 import se.rich.grtiming.system.manager.RaceEventManager;
@@ -8,12 +9,15 @@ import se.rich.grtiming.system.manager.RaceEventManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Stream;
 
 public class Maker {
 
-    final static Logger logger = Logger.getLogger(Maker.class);
+    final static Logger logger = LoggerFactory.getLogger(Maker.class.getName());
 
     /**
      * Creates a RaceEvent with three races and a number of Participants attached to each Race

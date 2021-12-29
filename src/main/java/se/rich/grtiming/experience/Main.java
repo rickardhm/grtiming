@@ -1,6 +1,7 @@
 package se.rich.grtiming.experience;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.rich.grtiming.process.util.Commons;
 import se.rich.grtiming.system.entity.FinishList;
 import se.rich.grtiming.system.entity.Participant;
@@ -21,7 +22,8 @@ import java.util.stream.Collectors;
 
 public class Main implements ActionListener {
 
-    final static Logger logger = Logger.getLogger(Main.class);
+    Logger logger = LoggerFactory.getLogger(Main.class.getName());
+
     private static Commons commons = new Commons();
     private Maker maker = new Maker();
     int counter = 0;
